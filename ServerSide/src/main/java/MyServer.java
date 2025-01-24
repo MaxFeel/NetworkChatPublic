@@ -47,6 +47,16 @@ public class MyServer {
         }
     }
 
+    public synchronized void sendPrivateMessage(String fromNick, String nick, StringBuilder msg){
+        String message = "";
+        message = "От " + fromNick + " отправил " + nick + ": " + msg;
+        for (ClientHandler o : clients) {
+            if (o.getName().equals(nick) || o.getName().equals(fromNick)){
+               o.sendMsg(message);
+            }
+        }
+    }
+
     public synchronized void unsubscribe(ClientHandler o) {
         clients.remove(o);
     }
